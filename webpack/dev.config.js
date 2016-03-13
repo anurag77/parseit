@@ -14,24 +14,8 @@ module.exports = {
 
   module: {
     loaders: [{
-      test: /bootstrap\/js\//,
-      loader: 'imports?jQuery=jquery',
-    }, {
-        test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-        loader: 'url-loader'
-    }, {
-      test: /\.js$/,
-      loaders: ['react-hot', 'babel?stage=0&loose[]=es6.modules'],
-      exclude: /node_modules/,
-    }, {
-      test: /\.scss$/,
-      loader: 'css!postcss-loader!sass',
-    }, {
-      test: /\.png$/,
-      loader: 'file?name=[name].[ext]',
-    }, {
-      test: /\.jpg$/,
-      loader: 'file?name=[name].[ext]',
+      test: /\.scss($|\?)|\.css($|\?)/,
+      loader: 'style!css?localIdentName=[path][name]--[local]!postcss-loader!sass',
     }],
   },
 

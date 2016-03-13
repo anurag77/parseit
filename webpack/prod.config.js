@@ -12,7 +12,7 @@ module.exports = {
 
   module: {
     loaders: [{
-      test: /\.scss$/,
+      test: /\.scss($|\?)|\.css($|\?)/,
       loader: 'style!css!postcss-loader!sass',
     }],
   },

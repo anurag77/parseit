@@ -34,14 +34,14 @@ const common = {
 
   module: {
     loaders: [{
-      test: /bootstrap\/js\//,
+      test: /bootstrap-sass\/assets\/javascripts\//,
       loader: 'imports?jQuery=jquery',
     }, {
-        test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-        loader: 'url-loader'
+      test: /\.woff($|\?)|\.woff2($|\?)|\.otf($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+      loader: 'url-loader?limit=8192'
     }, {
       test: /\.js$/,
-      loaders: ['react-hot', 'babel-loader'],
+      loaders: ['babel-loader'],
       exclude: /node_modules/,
     }, {
       test: /\.png$/,
