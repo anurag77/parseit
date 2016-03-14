@@ -4,7 +4,7 @@ import { Route } from 'react-router';
 /* containers */
 import { App } from 'containers/App';
 import { Home } from 'containers/Home';
-import { Parse } from 'containers/Parse';
+import Parse from 'containers/Parse';
 
 export default (
   <Route path="/" component={App}>

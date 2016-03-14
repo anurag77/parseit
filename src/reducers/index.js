@@ -7,7 +7,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   routing: routeReducer,
   /* your reducers */
-  items,
+  items: items,
 });
 
 export default rootReducer;

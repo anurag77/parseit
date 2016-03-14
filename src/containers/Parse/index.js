@@ -14,6 +14,8 @@ import './styles/parse.css';
 
 /* actions */
 import * as actionCreators from 'actions/items';
+var cheerio = require('cheerio');
+var t2j = require('../../utils/converter');
 
 const metaData = {
   title: 'Parse document',
@@ -27,13 +29,30 @@ const metaData = {
   },
 };
 
-@connect(
-  state => state.items,
-  dispatch => bindActionCreators(actionCreators, dispatch)
-)
-export class Parse extends Component {
+// @connect(
+//   dispatch => bindActionCreators(actionCreators, dispatch)
+// )
+class Parse extends Component {
   constructor(props) {
     super(props);
+    this._handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  _handleSubmit() {
+    let url = this.refs.url.value;
+    this.props.fetchDocument(url);
+  }
+
+  componentWillUpdate() {
+    if(this.props.document) {
+      var $ = cheerio.load(this.props.document)
+      var section = $("a[name='toc17062_25']").parent()
+      var balance_sheet = section.parent().next().next().next()
+      var outerHTML = $('<html>').append(section.parent().next().next().next()).html();
+      console.log("Document Title is: " + $('text title'))
+      console.log("Section Header: " + section.text())
+      console.log("Parsed Data: " + JSON.stringify(t2j.convert(outerHTML), null, 4))
+    }
   }
 
   render() {
@@ -104,7 +123,7 @@ export class Parse extends Component {
 
                 <div style={{paddingTop:'30px'}} className="panel-body" >
                   <div style={{display: 'none'}} id="login-alert" className="alert alert-danger col-sm-12"></div>
-                  <form onSubmit={this.handleLogin} id="loginform" className="form-signin" role="form">
+                  <form onSubmit={this._handleSubmit} id="loginform" className="form-signin" role="form">
 
                     <div style={{marginBottom: '25px'}} className={'input-group'}>
                       <span className="input-group-addon"><i className="glyphicon glyphicon-cloud-download"></i></span>
@@ -126,3 +145,11 @@ export class Parse extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    document : state.items.get('document')
+  };
+}
+
+export default connect(mapStateToProps, actionCreators)(Parse);

@@ -6,9 +6,16 @@ import { createHashHistory } from 'history';
 import { syncReduxAndRouter } from 'redux-simple-router';
 import configureStore from './store/configureStore';
 import routes from './routes';
+import {Map} from 'immutable';
+
+const initState = Object.assign({}, {
+  form: Map(),
+  routing: Map(),
+  items: Map()
+})
 
 const history = useRouterHistory(createHashHistory)({ queryKey: false });
-const store = configureStore();
+const store = configureStore(initState);
 
 syncReduxAndRouter(history, store);
 

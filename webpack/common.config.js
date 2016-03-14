@@ -47,6 +47,9 @@ const common = {
       test: /\.png$/,
       loader: 'file?name=[name].[ext]',
     }, {
+      test: /\.json$/,
+      loader: 'json-loader',
+    }, {
       test: /\.jpg$/,
       loader: 'file?name=[name].[ext]',
     }],
@@ -62,6 +65,11 @@ const common = {
       }),
     ];
   },
+  node: {
+    net: "empty",
+    tls: "empty",
+    fs: "empty"
+  }
 };
 
 if (TARGET === 'start' || !TARGET) {
